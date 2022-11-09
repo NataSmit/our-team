@@ -1,0 +1,11 @@
+.root {
+  font-family: "Roboto", "Arial", "sans-serif", "Helvetica";
+  font-weight: 400;
+  color: #151317;
+  min-width: 375px;
+  max-width: 1440px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 100vh;
+}

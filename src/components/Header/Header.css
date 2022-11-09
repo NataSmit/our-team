@@ -1,0 +1,40 @@
+.header {
+  background-color: #512689;
+}
+
+.header__container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 38px 5px 64px 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.header__title {
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 75px;
+  color: #FFFFFF;
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.header__subtitle {
+  font-size: 20px;
+  line-height: 23px;
+  text-align: center;
+  color: #F8F8F8;
+  margin: 0 auto;
+  max-width: 846px;
+}
+
+.header__button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #F8F8F8;
+  background-color: transparent;
+  color: #F8F8F8;
+  position: absolute;
+  top: 37px;
+  right: 10px;
+}

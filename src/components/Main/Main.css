@@ -1,0 +1,41 @@
+.main {
+  padding-bottom: 60px;
+}
+
+.main__container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, 305px);
+  justify-content: center;
+  padding: 48px 0 56px 0;
+}
+
+.main__more-btn {
+  padding: 9px 45px 9px 16px;
+  border: 1px solid #151317;
+  border-radius: 8px;
+  background-color: transparent;
+  width: 170px;
+  margin: 0 auto;
+  display: block;
+  font-size: 16px;
+  color: #151317;
+  position: relative;
+  text-align: center;
+}
+
+.main__more-btn::after {
+  content: '';
+  width: 18px;
+  height: 10px;
+  display: inline-block;
+ 
+  position: absolute;
+  margin-left: 11px;
+  top: 12px;
+  background-image: url('../../images/arrow.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
