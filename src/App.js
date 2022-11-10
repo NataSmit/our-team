@@ -1,18 +1,30 @@
 import './App.css';
 import axios from 'axios';
+import React, {useState} from 'react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {addMembers} from './store/teamMembersSlice';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import MemberPage from './components/MemberPage/MemberPage';
-import {Route, Switch} from 'react-router-dom';
-import Registration from './components/Registration/Registration'
+import {Route, Switch, useHistory} from 'react-router-dom';
+import Registration from './components/Registration/Registration';
+import Login from './components/Login/Login';
+import InfoTooltip from './components/InfoTooltip/InfoTooltip'
 
 
 function App() {
-const dispatch = useDispatch()
-const teamMembers = useSelector( (state) => state.teamMembersSlice.teamMembers)
+  const dispatch = useDispatch()
+  const teamMembers = useSelector( (state) => state.teamMembersSlice.teamMembers)
+  const history = useHistory();
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [message, setMessage] = useState({
+    successful: undefined,
+    message: "",
+  });
+  const [serverError, setServerError] = useState('')
+
+  console.log('serverError', serverError.slice(10, -2))
 
  useEffect(() => {
   myFetch()
@@ -33,14 +45,63 @@ const teamMembers = useSelector( (state) => state.teamMembersSlice.teamMembers)
     
   }
 
+  function handleRegistration(mail, password) {
+    axios.post('https://reqres.in/api/register', {
+      email: mail,
+      password: password
+    })
+    .then((res) => {
+      console.log(res.data);
+      if (res.data.token) {
+        setIsInfoTooltipOpen(true);
+        setMessage({
+          successful: true,
+          message: "Вы успешно зарегистрировались!",
+        });
+        history.push('/login')
+      }
+      localStorage.setItem('jwt', res.data.token)
+      
+    })
+    .catch((error) => {
+      console.log(error.request.response.error);
+      setServerError(error.request.response)
+      setIsInfoTooltipOpen(true);
+      setMessage({
+        successful: false,
+        message: "Что-то пошло не так! Попробуйте ещё раз.",
+      });
+    });
+  }
+
+  function handleLogin(mail, password) {
+    axios.post('https://reqres.in/api/login', {
+      email: mail,
+      password: password
+    })
+    .then((res) => {
+      console.log(res.data);
+      localStorage.setItem('jwt', res.data.token)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  function closeInfoTooltip() {
+    setIsInfoTooltipOpen(false);
+  }
+
  
-  
   return (
     <div className="wrapper">
       <div className='root'>
         <Switch>
           <Route exact path='/registration'>
-              <Registration />
+            <Registration handleRegistration={handleRegistration} serverError={serverError}/>
+          </Route>
+          <Route exact path='/login'>
+            <Login handleLogin={handleLogin}/>
           </Route>
           <Route exact path='/'>
             <Header>
@@ -59,6 +120,12 @@ const teamMembers = useSelector( (state) => state.teamMembersSlice.teamMembers)
         </Switch>
         
       </div>
+      <InfoTooltip
+        isOpen={isInfoTooltipOpen}
+        onClose={closeInfoTooltip}
+        message={message.message}
+        successful={message.successful}
+      />
     </div>
   );
 }

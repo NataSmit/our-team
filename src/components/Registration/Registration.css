@@ -16,18 +16,30 @@
   border: none;
   background-color: #F8F8F8;
   border-radius: 8px;
-  margin-bottom: 16px;
+  border: 1px solid transparent;
   box-sizing: border-box;
 }
 
 .registration__input:last-child {
-  margin-bottom: 0;
+  margin-top: 0;
 }
+
+.registration__input_type_error {
+  border: 1px solid red;
+}
+
+
+.registration__input_type_pw {
+  margin-top: 8px;
+}
+
 
 .registration {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  min-height: 100vh;
 }
 
 .registration__container {
@@ -35,7 +47,7 @@
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
   border-radius: 16px;
   padding: 16px;
- 
+  
 }
 
 .registration__title {
@@ -57,6 +69,16 @@
 
 }
 
+.registration__button:hover {
+  opacity: 0.8;
+}
+
+.registration__button:disabled {
+  background-color: gray;
+  cursor: auto;
+  opacity: 1;
+}
+
 .registration__view-toggle {
   border: none;
   background-color: transparent;
@@ -74,11 +96,21 @@
   transition: opacity .3s ease;
 }
 
+.registration__view-toggle_type_visible {
+  background-image: url('../../images/eye_without_line.svg');
+}
+
 .registration__view-toggle:hover {
   opacity: 0.8;
 }
 
-.registration__button:hover {
-  opacity: 0.8;
+
+.registration__error {
+  font-size: 10px;
+  line-height: 12px;
+  color: #FF6161;
+  display: block;
+  height: 12px;
+  margin: 5px 0 16px;
 }
 

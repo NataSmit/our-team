@@ -26,6 +26,13 @@
   border-radius: 10px;
   padding: 36px 20px 20px;
   box-sizing: border-box;
+  cursor: pointer;
+  transition: border .3s ease;
+  border: 1px solid transparent;
+}
+
+.member-card:hover {
+  border: 1px solid gray;
 }
 
 .member-card__button-container {
