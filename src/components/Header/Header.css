@@ -10,6 +10,10 @@
   position: relative;
 }
 
+.header__container_type_member {
+  padding: 39px 5px;
+}
+
 .header__title {
   font-weight: 400;
   font-size: 64px;
@@ -37,4 +41,8 @@
   position: absolute;
   top: 37px;
   right: 10px;
+}
+
+.header_button_type_back {
+  left: 10px;
 }
