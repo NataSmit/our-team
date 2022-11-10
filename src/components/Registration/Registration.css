@@ -1,0 +1,84 @@
+.registration__lable {
+  display: block;
+  font-size: 16px;
+  line-height: 136.19%;
+  margin: 0 0 8px;
+  position: relative;
+}
+
+.registration__input {
+  display: block;
+  font-size: 14px;
+  line-height: 16px;
+  color: #808185;
+  padding: 16px 8px 16px 16px;
+  width: 468px;
+  border: none;
+  background-color: #F8F8F8;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+.registration__input:last-child {
+  margin-bottom: 0;
+}
+
+.registration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registration__container {
+  background: #FFFFFF;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  padding: 16px;
+ 
+}
+
+.registration__title {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+  margin: 0 0 15px 0;
+}
+
+.registration__button {
+  padding: 13px 156px;
+  color: white;
+  border-radius: 8px;
+  background-color: #512689;
+  border: none;
+  margin-top: 24px;
+  cursor: pointer;
+  transition: opacity .3s ease;
+
+}
+
+.registration__view-toggle {
+  border: none;
+  background-color: transparent;
+  background-image: url('../../images/eye.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  position: absolute;
+  top: 34px;
+  right: 8px;
+  cursor: pointer;
+  transition: opacity .3s ease;
+}
+
+.registration__view-toggle:hover {
+  opacity: 0.8;
+}
+
+.registration__button:hover {
+  opacity: 0.8;
+}
+

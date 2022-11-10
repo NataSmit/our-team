@@ -7,6 +7,7 @@ import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import MemberPage from './components/MemberPage/MemberPage';
 import {Route, Switch} from 'react-router-dom';
+import Registration from './components/Registration/Registration'
 
 
 function App() {
@@ -38,6 +39,9 @@ const teamMembers = useSelector( (state) => state.teamMembersSlice.teamMembers)
     <div className="wrapper">
       <div className='root'>
         <Switch>
+          <Route exact path='/registration'>
+              <Registration />
+          </Route>
           <Route exact path='/'>
             <Header>
               <h1 className='header__title'>Наша команда</h1>
