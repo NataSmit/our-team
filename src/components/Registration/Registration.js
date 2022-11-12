@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 
 
 export default function Registration({handleRegistration, serverError}) {
@@ -13,7 +14,7 @@ export default function Registration({handleRegistration, serverError}) {
   const [passwordRepeatDirty, setPasswordRepeatDirty] = useState(false);
   const isSamePw = password === passwordRepeat
   const mailFormatErr = !/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(mail);
-  const disabledBtn = mailFormatErr > 3 && password.length >= 3 && isSamePw 
+  const disabledBtn = !mailFormatErr && password.length >= 3 && isSamePw 
   
 
   function handleMailChange(e) {
@@ -59,6 +60,7 @@ export default function Registration({handleRegistration, serverError}) {
     }
   }
 
+
   return (
     <div className='registration'>
       <div className='registration__container'>
@@ -69,14 +71,15 @@ export default function Registration({handleRegistration, serverError}) {
           <span className='registration__error'> {serverError.slice(10, -2)} </span>
           <label className='registration__lable' htmlFor='mail' >Электронная почта</label>
           <input value={mail} onChange={handleMailChange} 
-          className={`registration__input ${mailFormatErr && emailDirty ? 'registration__input_type_error' : ''}`} id='mail' placeholder='example@mail.ru' type='email'
+          className={`registration__input ${mailFormatErr && emailDirty ? 'registration__input_type_error' : ''}`} id='mail' 
+          placeholder='example@mail.ru' type='email'
           name='email'
           onBlur={blurHandler}
           />
           <span className='registration__error'>{emailDirty && mailFormatErr && 'Неверный формат'}</span>
           <label className='registration__lable' >Пароль
             <input value={password} onChange={handlePwChange} 
-            className={`registration__input ${passwordRepeatDirty && !isSamePw ? 'registration__input_type_error' : ''}`} id='password' 
+            className={`registration__input registration__input_type_pw ${passwordRepeatDirty && !isSamePw ? 'registration__input_type_error' : ''}`} id='password' 
             type={`${newType ? 'text' : 'password'}`}  
             maxLength='30'
             minLength='3'
@@ -90,7 +93,7 @@ export default function Registration({handleRegistration, serverError}) {
             </button>
           </label>
           <label className='registration__lable' >Подтвердите пароль
-            <input className={`registration__input ${passwordRepeatDirty && !isSamePw ? 'registration__input_type_error' : ''}`} id='repeatPW' 
+            <input className={`registration__input registration__input_type_pw ${passwordRepeatDirty && !isSamePw ? 'registration__input_type_error' : ''}`} id='repeatPW' 
             type={`${newTypeRepeate ? 'text' : 'password'}`}
             maxLength='30'
             value={passwordRepeat} onChange={handlePwChangeRepeat} 
@@ -104,6 +107,9 @@ export default function Registration({handleRegistration, serverError}) {
           <span className='registration__error'>{passwordRepeatDirty && !isSamePw && 'Пароли не совпадают'}</span>
           <span className='registration__error'> {serverError.slice(10, -2)} </span>
           <button disabled={!disabledBtn} className='registration__button'>Зарегистрироваться</button>
+          <Link to='/login' className='registration__redirect'>
+            Уже есть аккаунт? <span className='registration__redirect registration__redirect_type_span'>Войти</span>
+          </Link>
         </form>
       </div>
     </div>

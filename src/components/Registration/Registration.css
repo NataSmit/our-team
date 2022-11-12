@@ -63,10 +63,14 @@
   border-radius: 8px;
   background-color: #512689;
   border: none;
-  margin-top: 24px;
+  margin-top: 10px;
   cursor: pointer;
   transition: opacity .3s ease;
 
+}
+
+.registration__button_type_login {
+  padding: 13px 210px;
 }
 
 .registration__button:hover {
@@ -90,7 +94,7 @@
   height: 24px;
   padding: 0;
   position: absolute;
-  top: 34px;
+  top: 43px;
   right: 8px;
   cursor: pointer;
   transition: opacity .3s ease;
@@ -110,7 +114,21 @@
   line-height: 12px;
   color: #FF6161;
   display: block;
-  height: 12px;
+  height: 14px;
   margin: 5px 0 16px;
+}
+
+.registration__redirect {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  margin: 10px 0 0 0;
+  font-size: 12px;
+}
+
+.registration__redirect_type_span {
+  color: #512689;
+  display: inline-block;
 }
 

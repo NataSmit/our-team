@@ -1,24 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import Header from '../Header/Header';
 import { useHistory, useParams } from 'react-router-dom';
-import axios from 'axios';
+import {useDispatch, useSelector} from 'react-redux';
+import {getMemberById} from '../../store/teamMembersSlice';
 
 export default function MemberPage({member}) {
+  const dispatch = useDispatch()
+  const memberById = useSelector(state => state.teamMembersSlice.memberById)
   const history = useHistory()
   const params = useParams()
-  const [user, setUser] = useState({})
+  console.log('memberById', memberById)
+  
 
   useEffect(() => {
-    fetchMember(params.id)
+    dispatch(getMemberById(params.id))
   }, [])
 
   function goBack() {
     history.goBack();
-  }
-
-  async function fetchMember(id) {
-    const userData = await axios.get('https://reqres.in/api/users/' + id)
-    setUser(userData.data.data) 
   }
 
 
@@ -28,11 +27,11 @@ export default function MemberPage({member}) {
         <div className='member-page__container'>
           <div className='member-page__body'>
             <div className='member-page__photo-container'>
-              <img className='member-page__photo' src={user.avatar} alt={`Фото ${user.first_name} ${user.last_name}`}/>
+              <img className='member-page__photo' src={memberById.avatar} alt={`Фото ${memberById.first_name} ${memberById.last_name}`}/>
             </div>
             <div className='member-page__info'>
-              <h1 className='member-page__title'>{`${user.first_name} ${user.last_name}`}</h1>
-              <p className='member-page__subtitle'>{user.email}</p>
+              <h1 className='member-page__title'>{`${memberById.first_name || ''}  ${memberById.last_name || ""}`}</h1>
+              <p className='member-page__subtitle'>{memberById.email}</p>
             </div>
           </div>
         </div>
@@ -50,7 +49,7 @@ export default function MemberPage({member}) {
         </div>
         <div className='member-page__contacts'>
           <a className='member-page__tel' href="tel:+74951111111">+7 (495) 111-11-11</a>
-          <a className='member-page__mail' href={`mailto:${user.email}`}>{user.email}</a>
+          <a className='member-page__mail' href={`mailto:${memberById.email}`}>{memberById.email}</a>
         </div>
       </div>
 
