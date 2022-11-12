@@ -10,6 +10,7 @@ export default function MemberPage({member}) {
   const history = useHistory()
   const params = useParams()
   console.log('memberById', memberById)
+
   
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function MemberPage({member}) {
             </div>
             <div className='member-page__info'>
               <h1 className='member-page__title'>{`${memberById.first_name || ''}  ${memberById.last_name || ""}`}</h1>
-              <p className='member-page__subtitle'>{memberById.email}</p>
+              <p className='member-page__subtitle'>Партнер</p>
             </div>
           </div>
         </div>
