@@ -19,7 +19,7 @@ import {register, login} from './api/api';
 
 function App() {
   const dispatch = useDispatch()
-  const teamMembers = useSelector( (state) => state.teamMembersSlice.teamMembers)
+  const teamMembers = useSelector((state) => state.teamMembersSlice.teamMembers)
   //const registeredUsers = useSelector( (state) => state.registeredUsersSlice.registeredUsers)
   const {error} = useSelector( (state) => state.teamMembersSlice)
   const {registrationError, token} = useSelector( (state) => state.registeredUsersSlice)
@@ -42,7 +42,6 @@ function App() {
    dispatch(getMembers())
    checkToken()
   }, [])
-
 
 
   //function handleRegistration(mail, password) {

@@ -24,6 +24,8 @@
   color: #151317;
   position: relative;
   text-align: center;
+  cursor: pointer;
+  transition: opacity .3s ease;
 }
 
 .main__more-btn::after {
@@ -37,4 +39,8 @@
   background-image: url('../../images/arrow.svg');
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.main__more-btn:hover {
+  opacity: 0.7;
 }

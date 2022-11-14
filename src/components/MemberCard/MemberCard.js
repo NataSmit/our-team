@@ -4,7 +4,7 @@ export default function MemberCard({member, openMemberPage}) {
 
 
   return (
-    <div className='member-card' onClick={openMemberPage} >
+    <li className='member-card' onClick={openMemberPage} >
       <div className='member-card__container'>
         <div className='member-card__photo-container'>
           <img className='member-card__photo' src={member.avatar} alt={`Фото ${member.first_name} ${member.last_name}`}/>
@@ -15,6 +15,6 @@ export default function MemberCard({member, openMemberPage}) {
         </div>
       </div>
 
-    </div>
+    </li>
   )
 }
