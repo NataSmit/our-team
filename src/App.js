@@ -77,9 +77,9 @@ function App() {
             successful: true,
             message: "Вы успешно зарегистрировались!",
           });
-          localStorage.removeItem('registeredUsers')
+          //localStorage.removeItem('registeredUsers')
           history.push('/login')
-          localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers))
+          //localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers))
         }
        })
        .catch((err) => {
@@ -94,9 +94,11 @@ function App() {
   }
 
   function handleLogin(mail, password) {
-    if (localStorage.registeredUsers) {
-      const registeredUsersList = JSON.parse(localStorage.getItem('registeredUsers'))
-      const result = registeredUsersList.find((user) => user.mail === mail && user.password === password)
+    if (registeredUsers.length !== 0) {
+      //const registeredUsersList = JSON.parse(localStorage.getItem('registeredUsers'))
+      const result = registeredUsers.find((user) => user.mail === mail && user.password === password)
+      const pwIncorrect = registeredUsers.find((user) => user.mail === mail && user.password !== password)
+      const mailIncorrect = registeredUsers.find((user) => user.mail !== mail && user.password === password)
       if (result) {
         login(mail, password)
         .then((res) => {
@@ -114,7 +116,19 @@ function App() {
         .catch((error) => {
           console.log(error);
         });
-      } else {
+      } else if (pwIncorrect) {
+        setIsInfoTooltipOpen(true);
+        setMessage({
+        successful: false,
+        message: "Неправильные логин или пароль",
+      });
+      } else if (mailIncorrect) {
+        setIsInfoTooltipOpen(true);
+        setMessage({
+        successful: false,
+        message: "Неправильные логин или пароль",
+      });
+       } else {
         setIsInfoTooltipOpen(true);
         setMessage({
           successful: false,

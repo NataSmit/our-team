@@ -9,12 +9,9 @@ export default function Login({handleLogin, serverError}) {
 
   const [emailDirty, setEmailDirty] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
-  const pw = localStorage.getItem('regPw')
-  const mailReg = localStorage.getItem('regMail')
  
   const mailFormatErr = !/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(mail);
   const disabledBtn = !mailFormatErr && password.length >= 3 
-  
 
   function handleToggleViewBtn() {
     setNewType(!newType)
@@ -62,10 +59,6 @@ export default function Login({handleLogin, serverError}) {
           name='email'
           />
           <span className='registration__error'>
-           {/*} {emailDirty && !(mail === mailReg) && 'Неправильный адрес электронной почты или пароль'}
-            <React.Fragment>
-              <br />
-           </React.Fragment>*/}
             {emailDirty && mailFormatErr && 'Почта не валидна'}
           </span>
           <label className='registration__lable' >Пароль
@@ -81,10 +74,6 @@ export default function Login({handleLogin, serverError}) {
             </button>
           </label>
           <span className='registration__error'>
-           {/* {passwordDirty && !(password === pw) && 'Неправильный адрес электронной почты или пароль'}
-            <React.Fragment>
-              <br />
-          </React.Fragment> */}
             {passwordDirty && password.length < 3 && 'Минимальная длина пароля 3 символа'}
           </span>
           <span className='registration__error'> {serverError.slice(10, -2)} </span>
