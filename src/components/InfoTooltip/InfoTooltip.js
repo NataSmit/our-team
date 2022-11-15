@@ -1,15 +1,15 @@
-import React from "react";
-import closeIcon from "../../images/Close-Icon.svg";
+import React from 'react';
+import closeIcon from '../../images/Close-Icon.svg';
 
 export default function InfoTooltip(props) {
   return (
-    <div className={`popup  ${props.isOpen ? "popup_opened" : ""}`}>
+    <div className={`popup  ${props.isOpen ? 'popup_opened' : ''}`}>
       <div className="popup__container popup__container_type_tooltip">
         <div
           className={`${
             props.successful
-              ? "popup__tooltip-img"
-              : "popup__tooltip-img_type_error"
+              ? 'popup__tooltip-img'
+              : 'popup__tooltip-img_type_error'
           }`}
         ></div>
         <p className="popup__tooltip-message">{props.message}</p>

@@ -1,5 +1,5 @@
 .member-page__photo-container {
- flex: 0 0 187px;
+  flex: 0 0 187px;
   height: 187px;
   border-radius: 50%;
   overflow: hidden;
@@ -42,17 +42,20 @@
   margin: 0 auto;
 }
 
-.member-page__resume {
-  max-width: 950px;
-  margin: 0 auto;
+
+.member-page__description {
+  flex: 0 0 630px;
 }
 
 .member-page__text {
-  max-width: 630px;
   font-weight: 400;
   font-size: 16px;
   line-height: 136.19%;
   color: #151317;
+  margin: 0 0 20px 0;
+}
+
+.member-page__text:last-child {
   margin: 0;
 }
 
@@ -109,5 +112,75 @@
   display: flex;
   justify-content: space-between;
   padding-top: 49px;
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+.header__back-btn-small {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .member-page__title {
+    font-size: 36px;
+    line-height: 42px;
+    text-align: center;
+  }
+
+  .member-page__subtitle {
+    font-size: 20px;
+    line-height: 23px;
+    text-align: center;
+  }
+
+  .member-page__body {
+    flex-direction: column;
+  }
+
+  .member-page__photo-container {
+    width: 187px;
+    order: 2;
+  }
+
+  .member-page__info {
+    order: 1;
+    margin: 0 0 16px 0;
+  }
+
+  .member-page__description {
+    order: 2;
+  }
+
+  .member-page__contacts {
+    order: 1;
+    margin-bottom: 34px;
+  }
+
+  .member-page__resume {
+    flex-direction: column;
+    max-width: 340px;
+    padding: 33px 16px ;
+  }
+
+  .header__back-btn-small {
+    width: 18px;
+    height: 18px;
+    background-image: url('../../images/back.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 23px;
+    left: 27px;
+    cursor: pointer;
+    transition: opacity .3s ease;
+    display: block;
+  }
+
+  .header__back-btn-small:hover {
+    opacity: 0.7;
+  }
 }
 

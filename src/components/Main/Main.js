@@ -1,39 +1,29 @@
-import React, { useEffect, useState } from "react";
-import MemberCard from "../MemberCard/MemberCard";
-import { useHistory } from "react-router-dom";
-import { getMembersSecondPage } from "../../store/teamMembersSlice";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { getMembersSecondPage } from '../../store/teamMembersSlice';
+import MemberCard from '../MemberCard/MemberCard';
 
 export default function Main({ teamMembers, error }) {
+  console.log('error', error);
   const history = useHistory();
-  const dispatch = useDispatch();
-  const teamMembersSecondPage = useSelector(
-    (state) => state.teamMembersSlice.teamMembersSecondPage
-  );
-  const [moreBtnClicked, setMoreBtnClicked] = useState(false);
-  const finalListToDisplay = moreBtnClicked
-    ? [...teamMembers, ...teamMembersSecondPage]
-    : teamMembers;
+  const [numberToDisplay, setNumberToDisplay] = useState(8);
 
   function openMemberPage(id) {
     history.push(`/${id}`);
   }
 
   function handleMoreBtn() {
-    setMoreBtnClicked(true);
-    console.log("clicked");
+    setNumberToDisplay(numberToDisplay + 8);
   }
-
-  useEffect(() => {
-    dispatch(getMembersSecondPage());
-  }, []);
 
   return (
     <main className="main">
       <ul className="main__container">
         {error && <p>На сервере произошла ошибка</p>}
-        {finalListToDisplay.map((member) => (
+        {teamMembers.slice(0, numberToDisplay).map((member) => (
           <MemberCard
             member={member}
             key={member.id}

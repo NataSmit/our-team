@@ -1,53 +1,50 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-
-export default function Registration({handleRegistration, serverError}) {
-
+export default function Registration({ handleRegistration, serverError }) {
   const [newType, setNewType] = useState(false);
   const [newTypeRepeate, setNewTypeRepeate] = useState(false);
-  const [mail, setMail] = useState('')
-  const [password, setPassword] = useState('')
-  const [passwordRepeat, setPasswordRepeat] = useState('')
+  const [mail, setMail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordRepeat, setPasswordRepeat] = useState('');
   const [emailDirty, setEmailDirty] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
   const [passwordRepeatDirty, setPasswordRepeatDirty] = useState(false);
-  const isSamePw = password === passwordRepeat
+  const isSamePw = password === passwordRepeat;
   const mailFormatErr = !/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(mail);
-  const disabledBtn = !mailFormatErr && password.length >= 3 && isSamePw 
-  
+  const disabledBtn = !mailFormatErr && password.length >= 3 && isSamePw;
 
   function handleMailChange(e) {
-    setMail(e.target.value)
+    setMail(e.target.value);
   }
 
   function handlePwChange(e) {
-    setPassword(e.target.value)
+    setPassword(e.target.value);
   }
 
   function handlePwChangeRepeat(e) {
-    setPasswordRepeat(e.target.value)
+    setPasswordRepeat(e.target.value);
   }
 
   function handleToggleViewBtn() {
-    setNewType(!newType)
+    setNewType(!newType);
   }
 
   function handleToggleViewBtnRepeat() {
-    setNewTypeRepeate(!newTypeRepeate)
+    setNewTypeRepeate(!newTypeRepeate);
   }
 
   function handleFormSubmit(e) {
     e.preventDefault();
-    handleRegistration(mail, password)
+    handleRegistration(mail, password);
   }
 
   function blurHandler(e) {
     switch (e.target.name) {
-      case "email":
+      case 'email':
         setEmailDirty(true);
         break;
-      case "password":
+      case 'password':
         setPasswordDirty(true);
         break;
       case 'passwordRepeat':
@@ -60,7 +57,6 @@ export default function Registration({handleRegistration, serverError}) {
     }
   }
 
-
   return (
     <div className='registration'>
       <div className='registration__container'>
@@ -70,37 +66,37 @@ export default function Registration({handleRegistration, serverError}) {
           <input className='registration__input' id='name' placeholder='Артур'/>
           <span className='registration__error'> {serverError.slice(10, -2)} </span>
           <label className='registration__lable' htmlFor='mail' >Электронная почта</label>
-          <input value={mail} onChange={handleMailChange} 
-          className={`registration__input ${mailFormatErr && emailDirty ? 'registration__input_type_error' : ''}`} id='mail' 
+          <input value={mail} onChange={handleMailChange}
+          className={`registration__input ${mailFormatErr && emailDirty ? 'registration__input_type_error' : ''}`} id='mail'
           placeholder='example@mail.ru' type='email'
           name='email'
           onBlur={blurHandler}
           />
           <span className='registration__error'>{emailDirty && mailFormatErr && 'Неверный формат'}</span>
           <label className='registration__lable' >Пароль
-            <input value={password} onChange={handlePwChange} 
-            className={`registration__input registration__input_type_pw ${passwordRepeatDirty && !isSamePw ? 'registration__input_type_error' : ''}`} id='password' 
-            type={`${newType ? 'text' : 'password'}`}  
+            <input value={password} onChange={handlePwChange}
+            className={`registration__input registration__input_type_pw ${passwordRepeatDirty && !isSamePw ? 'registration__input_type_error' : ''}`} id='password'
+            type={`${newType ? 'text' : 'password'}`}
             maxLength='30'
             minLength='3'
             name='password'
             onBlur={blurHandler}
             />
-            <button className={`registration__view-toggle ${newType ? 'registration__view-toggle_type_visible' : ''}`} 
+            <button className={`registration__view-toggle ${newType ? 'registration__view-toggle_type_visible' : ''}`}
             type='button'
             onClick={handleToggleViewBtn}>
-           
+
             </button>
           </label>
           <label className='registration__lable' >Подтвердите пароль
-            <input className={`registration__input registration__input_type_pw ${passwordRepeatDirty && !isSamePw ? 'registration__input_type_error' : ''}`} id='repeatPW' 
+            <input className={`registration__input registration__input_type_pw ${passwordRepeatDirty && !isSamePw ? 'registration__input_type_error' : ''}`} id='repeatPW'
             type={`${newTypeRepeate ? 'text' : 'password'}`}
             maxLength='30'
-            value={passwordRepeat} onChange={handlePwChangeRepeat} 
+            value={passwordRepeat} onChange={handlePwChangeRepeat}
             name='passwordRepeat'
             onBlur={setPasswordRepeatDirty}
             />
-            <button className={`registration__view-toggle ${newTypeRepeate ? 'registration__view-toggle_type_visible' : ''}`} type='button' 
+            <button className={`registration__view-toggle ${newTypeRepeate ? 'registration__view-toggle_type_visible' : ''}`} type='button'
               onClick={handleToggleViewBtnRepeat}>
             </button>
           </label>
@@ -113,5 +109,5 @@ export default function Registration({handleRegistration, serverError}) {
         </form>
       </div>
     </div>
-  )
+  );
 }

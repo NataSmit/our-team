@@ -1,59 +1,38 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const getMembers = createAsyncThunk(
   'members/getMembers',
-  async function (_, {rejectWithValue}) {
+  async (_, { rejectWithValue }) => {
     try {
-      const myData = await axios.get('https://reqres.in/api/users?page=1', {headers: {
-        "Content-Type": "application/json",
-      }})
-      
-      if (myData.statusText !== 'OK') {
-        throw new Error('Server Error');
-      }
-      const result = myData.data.data;
-      return result
-    } catch(err) {
-      return rejectWithValue(err)
-    }
-  }
-)
+      const myData = await axios.get('https://reqres.in/api/users?per_page=12');
+      console.log('myData getMembers', myData);
 
-export const getMembersSecondPage = createAsyncThunk(
-  'members/getMembersSecondPage',
-  async function (_, {rejectWithValue}) {
-    try {
-      const myData = await axios.get('https://reqres.in/api/users?page=2')
-      console.log('myData SecondPage', myData.data)
-      if (myData.statusText !== 'OK') {
-        throw new Error('Server Error');
-      }
       const result = myData.data.data;
-      console.log(result)
-      return result
-    } catch(err) {
-      return rejectWithValue(err)
+      return result;
+    } catch (err) {
+      console.log('error getmembers', err);
+      return rejectWithValue(err);
     }
-  }
-)
+  },
+);
 
 export const getMemberById = createAsyncThunk(
   'members/getMemberById',
 
-  async function (id, rejectWithValue) {
+  async (id, rejectWithValue) => {
     try {
-      const data = await axios.get('https://reqres.in/api/users/' + id)
+      const data = await axios.get(`https://reqres.in/api/users/${id}`);
       if (data.statusText !== 'OK') {
         throw new Error('Server Error');
       }
       const result = data.data.data;
-      return result
+      return result;
     } catch (err) {
-      return rejectWithValue(err)
+      return rejectWithValue(err);
     }
-  }
-)
+  },
+);
 
 export const teamMembersSlice = createSlice({
   name: 'teamMembers',
@@ -65,32 +44,27 @@ export const teamMembersSlice = createSlice({
   },
   reducers: {
     addMembers(state, action) {
-       state.teamMembers = action.payload
+      state.teamMembers = action.payload;
     },
     addMembersSecondPage(state, action) {
-      state.teamMembersSecondPage = action.payload
-   }
+      state.teamMembersSecondPage = action.payload;
+    },
   },
   extraReducers: {
     [getMembers.fulfilled]: (state, action) => {
       state.teamMembers = action.payload;
     },
     [getMembers.rejected]: (state, action) => {
-      state.error = action.payload
+      state.error = action.payload;
     },
     [getMemberById.fulfilled]: (state, action) => {
       state.memberById = action.payload;
     },
     [getMemberById.rejected]: (state, action) => {
-      state.error = action.payload
-    },
-    [getMembersSecondPage.fulfilled]: (state, action) => {
-      state.teamMembersSecondPage = action.payload;
-    },
-    [getMembersSecondPage.rejected]: (state, action) => {
-      state.error = action.payload
-    },
-  }
-})
+      state.error = action.payload;
+    }
+  
+  },
+});
 
-export const {addMembers, addMembersSecondPage} = teamMembersSlice.actions;
+export const { addMembers} = teamMembersSlice.actions;

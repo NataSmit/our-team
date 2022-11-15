@@ -1,42 +1,41 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-export default function Login({handleLogin, serverError}) {
-
+export default function Login({ handleLogin, serverError }) {
   const [newType, setNewType] = useState(false);
-  const [mail, setMail] = useState('')
-  const [password, setPassword] = useState('')
+  const [mail, setMail] = useState('');
+  const [password, setPassword] = useState('');
 
   const [emailDirty, setEmailDirty] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
- 
+
   const mailFormatErr = !/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(mail);
-  const disabledBtn = !mailFormatErr && password.length >= 3 
+  const disabledBtn = !mailFormatErr && password.length >= 3;
 
   function handleToggleViewBtn() {
-    setNewType(!newType)
+    setNewType(!newType);
   }
 
   function handleMailChange(e) {
-    setMail(e.target.value)
+    setMail(e.target.value);
   }
 
   function handlePwChange(e) {
-    setPassword(e.target.value)
+    setPassword(e.target.value);
   }
 
   function handleFormSubmit(e) {
     e.preventDefault();
-  
-    handleLogin(mail, password)
+
+    handleLogin(mail, password);
   }
 
   function blurHandler(e) {
     switch (e.target.name) {
-      case "email":
+      case 'email':
         setEmailDirty(true);
         break;
-      case "password":
+      case 'password':
         setPasswordDirty(true);
         break;
       default:
@@ -45,15 +44,14 @@ export default function Login({handleLogin, serverError}) {
     }
   }
 
-
   return (
     <div className='registration'>
       <div className='registration__container'>
         <h1 className='registration__title'>Вход</h1>
         <form className='registration__form' onSubmit={handleFormSubmit}>
           <label className='registration__lable' htmlFor='mail' >Электронная почта</label>
-          <input  value={mail} onChange={handleMailChange} 
-          className='registration__input' id='mail' placeholder='example@mail.ru' 
+          <input value={mail} onChange={handleMailChange}
+          className='registration__input' id='mail' placeholder='example@mail.ru'
           type='email'
           onBlur={blurHandler}
           name='email'
@@ -62,13 +60,13 @@ export default function Login({handleLogin, serverError}) {
             {emailDirty && mailFormatErr && 'Почта не валидна'}
           </span>
           <label className='registration__lable' >Пароль
-            <input  className='registration__input registration__input_type_pw' id='password' 
-            type={`${newType ? 'text' : 'password'}`}  
+            <input className='registration__input registration__input_type_pw' id='password'
+            type={`${newType ? 'text' : 'password'}`}
             value={password} onChange={handlePwChange}
             onBlur={blurHandler}
             name='password'
             />
-            <button className={`registration__view-toggle ${newType ? 'registration__view-toggle_type_visible' : ''}`} 
+            <button className={`registration__view-toggle ${newType ? 'registration__view-toggle_type_visible' : ''}`}
             type='button'
             onClick={handleToggleViewBtn}>
             </button>
@@ -85,5 +83,5 @@ export default function Login({handleLogin, serverError}) {
         </form>
       </div>
     </div>
-  )
+  );
 }

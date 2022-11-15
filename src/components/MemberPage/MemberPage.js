@@ -1,26 +1,23 @@
-import React, {useEffect, useState} from 'react';
-import Header from '../Header/Header';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {getMemberById} from '../../store/teamMembersSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import Header from '../Header/Header';
+import { getMemberById } from '../../store/teamMembersSlice';
 
-export default function MemberPage({member}) {
-  const dispatch = useDispatch()
-  const memberById = useSelector(state => state.teamMembersSlice.memberById)
-  const history = useHistory()
-  const params = useParams()
-  console.log('memberById', memberById)
-
-  
+export default function MemberPage({ member }) {
+  const dispatch = useDispatch();
+  const memberById = useSelector((state) => state.teamMembersSlice.memberById);
+  const history = useHistory();
+  const params = useParams();
+  console.log('memberById', memberById);
 
   useEffect(() => {
-    dispatch(getMemberById(params.id))
-  }, [])
+    dispatch(getMemberById(params.id));
+  }, []);
 
   function goBack() {
     history.goBack();
   }
-
 
   return (
     <section className='member-page'>
@@ -31,22 +28,38 @@ export default function MemberPage({member}) {
               <img className='member-page__photo' src={memberById.avatar} alt={`Фото ${memberById.first_name} ${memberById.last_name}`}/>
             </div>
             <div className='member-page__info'>
-              <h1 className='member-page__title'>{`${memberById.first_name || ''}  ${memberById.last_name || ""}`}</h1>
+              <h1 className='member-page__title'>{`${memberById.first_name || ''}  ${memberById.last_name || ''}`}</h1>
               <p className='member-page__subtitle'>Партнер</p>
             </div>
           </div>
         </div>
         <button className='header__button header_button_type_back' onClick={goBack}>Назад</button>
+        <button className='header__back-btn-small' onClick={goBack}></button>
       </Header>
       <div className='member-page__resume'>
         <div className='member-page__description'>
           <p className='member-page__text'>
-          Клиенты видят в нем эксперта по вопросам разработки комплексных решений финансовых продуктов, включая такие аспекты, как организационная структура, процессы, аналитика и ИТ-компоненты. Он помогает клиентам лучше понимать структуру рисков их бизнеса, улучшать процессы за счет применения новейших технологий и увеличивать продажи, используя самые современные аналитические инструменты.
-
-В работе с клиентами недостаточно просто решить конкретную проблему или помочь справиться с трудностями. Не менее важно уделять внимание обмену знаниями: "Один из самых позитивных моментов — это осознание того, что ты помог клиенту перейти на совершенно новый уровень компетентности, уверенность в том, что после окончания проекта у клиента есть все необходимое, чтобы дальше развиваться самостоятельно".
-
-Помимо разнообразных проектов для клиентов финансового сектора, Сорин ведет активную предпринимательскую деятельность. Он является совладельцем сети клиник эстетической медицины в Швейцарии, предлагающей инновационный подход к красоте, а также инвестором других бизнес-проектов.
+            Клиенты видят в нем эксперта по вопросам разработки комплексных решений финансовых
+            продуктов, включая такие аспекты, как организационная структура, процессы,
+            аналитика и ИТ-компоненты. Он помогает клиентам лучше понимать структуру рисков
+            их бизнеса, улучшать процессы за счет применения новейших технологий и
+            увеличивать продажи, используя самые современные аналитические инструменты.
           </p>
+          <p className='member-page__text'>
+            В работе с клиентами недостаточно просто решить конкретную проблему или помочь
+            справиться с трудностями. Не менее важно уделять внимание обмену знаниями:
+            "Один из самых позитивных моментов — это осознание того, что ты помог клиенту
+            перейти на совершенно новый уровень компетентности, уверенность в том, что после
+            окончания проекта у клиента есть все необходимое, чтобы дальше
+            развиваться самостоятельно".
+          </p>
+          <p className='member-page__text'>
+            Помимо разнообразных проектов для клиентов финансового сектора, Сорин ведет активную
+            предпринимательскую деятельность. Он является совладельцем сети клиник эстетической
+            медицины в Швейцарии, предлагающей инновационный подход к красоте, а также инвестором
+            других бизнес-проектов.
+          </p>
+
         </div>
         <div className='member-page__contacts'>
           <a className='member-page__tel' href="tel:+74951111111">+7 (495) 111-11-11</a>
@@ -55,5 +68,5 @@ export default function MemberPage({member}) {
       </div>
 
     </section>
-  )
+  );
 }

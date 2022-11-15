@@ -1,8 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-export default function MemberCard({member, openMemberPage}) {
-
-
+export default function MemberCard({ member, openMemberPage }) {
   return (
     <li className='member-card' onClick={openMemberPage} >
       <div className='member-card__container'>
@@ -16,5 +14,5 @@ export default function MemberCard({member, openMemberPage}) {
       </div>
 
     </li>
-  )
+  );
 }
