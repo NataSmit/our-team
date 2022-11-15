@@ -5,7 +5,9 @@ export const getMembers = createAsyncThunk(
   'members/getMembers',
   async function (_, {rejectWithValue}) {
     try {
-      const myData = await axios.get('https://reqres.in/api/users?page=1')
+      const myData = await axios.get('https://reqres.in/api/users?page=1', {headers: {
+        "Content-Type": "application/json",
+      }})
       
       if (myData.statusText !== 'OK') {
         throw new Error('Server Error');
