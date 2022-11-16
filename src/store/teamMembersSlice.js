@@ -1,41 +1,40 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+/* eslint-disable no-param-reassign */
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 export const getMembers = createAsyncThunk(
-  'members/getMembers',
+  "members/getMembers",
   async (_, { rejectWithValue }) => {
     try {
-      const myData = await axios.get('https://reqres.in/api/users?per_page=12');
-      console.log('myData getMembers', myData);
+      const myData = await axios.get("https://reqres.in/api/users?per_page=12");
 
       const result = myData.data.data;
       return result;
     } catch (err) {
-      console.log('error getmembers', err);
       return rejectWithValue(err);
     }
-  },
+  }
 );
 
 export const getMemberById = createAsyncThunk(
-  'members/getMemberById',
+  "members/getMemberById",
 
   async (id, rejectWithValue) => {
     try {
       const data = await axios.get(`https://reqres.in/api/users/${id}`);
-      if (data.statusText !== 'OK') {
-        throw new Error('Server Error');
+      if (data.statusText !== "OK") {
+        throw new Error("Server Error");
       }
       const result = data.data.data;
       return result;
     } catch (err) {
       return rejectWithValue(err);
     }
-  },
+  }
 );
 
 export const teamMembersSlice = createSlice({
-  name: 'teamMembers',
+  name: "teamMembers",
   initialState: {
     teamMembers: [],
     teamMembersSecondPage: [],
@@ -62,9 +61,8 @@ export const teamMembersSlice = createSlice({
     },
     [getMemberById.rejected]: (state, action) => {
       state.error = action.payload;
-    }
-  
+    },
   },
 });
 
-export const { addMembers} = teamMembersSlice.actions;
+export const { addMembers } = teamMembersSlice.actions;

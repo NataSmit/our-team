@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import { getMembersSecondPage } from '../../store/teamMembersSlice';
-import MemberCard from '../MemberCard/MemberCard';
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { getMembersSecondPage } from "../../store/teamMembersSlice";
+import MemberCard from "../MemberCard/MemberCard";
 
 export default function Main({ teamMembers, error }) {
-  console.log('error', error);
+  console.log("error", error);
   const history = useHistory();
   const [numberToDisplay, setNumberToDisplay] = useState(8);
 
@@ -31,9 +31,13 @@ export default function Main({ teamMembers, error }) {
           />
         ))}
       </ul>
-      <button className="main__more-btn" onClick={handleMoreBtn}>
-        Показать еще
-      </button>
+      {numberToDisplay > teamMembers.length ? (
+        ""
+      ) : (
+        <button className="main__more-btn" onClick={handleMoreBtn}>
+          Показать еще
+        </button>
+      )}
     </main>
   );
 }

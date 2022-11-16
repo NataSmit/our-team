@@ -132,3 +132,16 @@
   display: inline-block;
 }
 
+@media (max-width: 767px) {
+  .registration__input {
+    width: 343px;
+  }
+
+  .registration__button {
+    padding: 13px 93px;
+  }
+
+  .registration__button_type_login {
+    padding: 13px 150px;
+  }
+}
