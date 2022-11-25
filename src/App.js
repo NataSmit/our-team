@@ -48,7 +48,7 @@ function App() {
         }
       })
       .catch((err) => {
-        setServerError(error.request.response);
+        setServerError(err.request.response);
         setIsInfoTooltipOpen(true);
         setMessage({
           successful: false,
