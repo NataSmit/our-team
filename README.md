@@ -11,11 +11,11 @@
 - byron.fields@reqres.in
 - tobias.funke@reqres.in
 
-**Инструменты**
-- React
+## :hammer_and_wrench: Инструменты 
+- React (react hooks, react router)
 - Redux Toolkit (slice, thunk)
 
-**Планы по доработке**
+## :open_book: Планы по доработке
 
 1. Подключить backend
 2. Добавить функцию отметить как понравившееся
