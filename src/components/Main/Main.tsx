@@ -1,17 +1,23 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { getMembersSecondPage } from "../../store/teamMembersSlice";
 import MemberCard from "../MemberCard/MemberCard";
+import {useAppSelector} from '../../types/reduxHooks';
 
-export default function Main({ teamMembers, error }) {
-  console.log("error", error);
+import {Member} from '../../types/member'
+
+interface MainProps {
+  teamMembers: Member[]
+}
+
+export default function Main({ teamMembers }: MainProps) {
+ 
   const history = useHistory();
   const [numberToDisplay, setNumberToDisplay] = useState(8);
+  const { error } = useAppSelector((state) => state.teamMembersSlice);
+  console.log("error", error);
 
-  function openMemberPage(id) {
+  function openMemberPage(id: number) {
     history.push(`/${id}`);
   }
 

@@ -3,12 +3,19 @@ import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../Header/Header";
 import { getMemberById } from "../../store/teamMembersSlice";
+import {useAppSelector, useAppDispatch} from '../../types/reduxHooks';
+import { HeaderProps } from "../Header/Header";
 
-export default function MemberPage({ member }) {
-  const dispatch = useDispatch();
-  const memberById = useSelector((state) => state.teamMembersSlice.memberById);
+type MemberPageProps = Omit<HeaderProps, 'children'>
+
+export default function MemberPage({ member, logout }: MemberPageProps) {
+  type Params = {
+    id: string
+  }
+  const dispatch = useAppDispatch();
+  const memberById = useAppSelector((state) => state.teamMembersSlice.memberById);
   const history = useHistory();
-  const params = useParams();
+  const params = useParams<Params>();
   console.log("memberById", memberById);
 
   useEffect(() => {
@@ -21,7 +28,7 @@ export default function MemberPage({ member }) {
 
   return (
     <section className="member-page">
-      <Header member={true}>
+      <Header member={true} logout={logout}>
         <div className="member-page__container">
           <div className="member-page__body">
             <div className="member-page__photo-container">

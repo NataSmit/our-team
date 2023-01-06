@@ -1,7 +1,14 @@
 import React from "react";
 import closeIcon from "../../images/Close-Icon.svg";
 
-export default function InfoTooltip(props) {
+interface InfoTooltipProps {
+  isOpen: boolean,
+  onClose: () => void,
+  message: string,
+  successful: boolean | undefined
+}
+
+export default function InfoTooltip(props: InfoTooltipProps) {
   return (
     <div className={`popup  ${props.isOpen ? "popup_opened" : ""}`}>
       <div className="popup__container popup__container_type_tooltip">

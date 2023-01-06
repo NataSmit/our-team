@@ -1,7 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, useHistory } from "react-router-dom";
 import { getMembers } from "./store/teamMembersSlice";
 import Header from "./components/Header/Header";
@@ -12,29 +11,32 @@ import Login from "./components/Login/Login";
 import InfoTooltip from "./components/InfoTooltip/InfoTooltip";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { register, login } from "./api/api";
+import {useAppSelector, useAppDispatch} from './types/reduxHooks';
+import {RegisteredUser} from './types/registeredUser';
+import {Message} from './types/message';
 
 function App() {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
+  const dispatch = useAppDispatch()
   const history = useHistory();
-  const teamMembers = useSelector(
+  const teamMembers = useAppSelector(
     (state) => state.teamMembersSlice.teamMembers
   );
-  const { error } = useSelector((state) => state.teamMembersSlice);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
-  const [message, setMessage] = useState({
+  const [message, setMessage] = useState<Message>({
     successful: undefined,
     message: "",
   });
   const [serverError, setServerError] = useState("");
   const [loggedin, setLoggedin] = useState(false);
-  const [registeredUsers, setRegisteredUsers] = useState([]);
+  const [registeredUsers, setRegisteredUsers] = useState<RegisteredUser[]>([]);
 
   useEffect(() => {
     dispatch(getMembers());
     checkToken();
   }, []);
 
-  function handleRegistration(mail, password) {
+  function handleRegistration(mail: string, password: string) {
     register(mail, password)
       .then((res) => {
         if (res.data.token) {
@@ -57,7 +59,7 @@ function App() {
       });
   }
 
-  function handleLogin(mail, password) {
+  function handleLogin(mail: string, password: string) {
     if (registeredUsers.length !== 0) {
       const result = registeredUsers.find(
         (user) => user.mail === mail && user.password === password
@@ -126,7 +128,7 @@ function App() {
 
   function logout() {
     setLoggedin(false);
-    localStorage.clear("jwt");
+    localStorage.removeItem("jwt");
     history.push("/login");
   }
 
@@ -146,7 +148,7 @@ function App() {
 
           <ProtectedRoute exact path="/" loggedin={loggedin}>
             <Route>
-              <Header logout={logout}>
+              <Header logout={logout} >
                 <h1 className="header__title">Наша команда</h1>
                 <p className="header__subtitle">
                   Это опытные специалисты, хорошо разбирающиеся во всех задачах,
@@ -154,13 +156,13 @@ function App() {
                   любых, даже самых сложных ситуаций.
                 </p>
               </Header>
-              <Main teamMembers={teamMembers} error={error} />
+              <Main teamMembers={teamMembers} />
             </Route>
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/:id" loggedin={loggedin}>
             <Route>
-              <MemberPage />
+              <MemberPage logout={logout}/>
             </Route>
           </ProtectedRoute>
         </Switch>

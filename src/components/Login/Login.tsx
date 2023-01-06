@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function Login({ handleLogin, serverError }) {
+interface LoginProps {
+  handleLogin: (mail: string, password: string) => void,
+  serverError: string
+}
+
+export default function Login({ handleLogin, serverError }: LoginProps) {
   const [newType, setNewType] = useState(false);
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,21 +21,21 @@ export default function Login({ handleLogin, serverError }) {
     setNewType(!newType);
   }
 
-  function handleMailChange(e) {
+  function handleMailChange(e: React.ChangeEvent<HTMLInputElement>) {
     setMail(e.target.value);
   }
 
-  function handlePwChange(e) {
+  function handlePwChange(e: React.ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value);
   }
 
-  function handleFormSubmit(e) {
+  function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     handleLogin(mail, password);
   }
 
-  function blurHandler(e) {
+  function blurHandler(e: React.FocusEvent<HTMLInputElement>) {
     switch (e.target.name) {
       case "email":
         setEmailDirty(true);

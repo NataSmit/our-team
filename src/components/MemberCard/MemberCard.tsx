@@ -1,6 +1,12 @@
 import React from "react";
+import {Member} from '../../types/member'
 
-export default function MemberCard({ member, openMemberPage }) {
+interface MemberCardProps {
+  member: Member,
+  openMemberPage: (e: React.MouseEvent<HTMLLIElement>) => void
+}
+
+export default function MemberCard({ member, openMemberPage }: MemberCardProps) {
   return (
     <li className="member-card" onClick={openMemberPage}>
       <div className="member-card__container">

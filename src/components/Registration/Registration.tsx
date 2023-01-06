@@ -2,7 +2,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function Registration({ handleRegistration, serverError }) {
+interface RegistrationProps {
+  handleRegistration: (mail: string, password: string) => void,
+  serverError: string
+}
+
+export default function Registration({ handleRegistration, serverError }: RegistrationProps) {
   const [newType, setNewType] = useState(false);
   const [newTypeRepeate, setNewTypeRepeate] = useState(false);
   const [mail, setMail] = useState("");
@@ -15,15 +20,15 @@ export default function Registration({ handleRegistration, serverError }) {
   const mailFormatErr = !/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(mail);
   const disabledBtn = !mailFormatErr && password.length >= 3 && isSamePw;
 
-  function handleMailChange(e) {
+  function handleMailChange(e: React.ChangeEvent<HTMLInputElement>) {
     setMail(e.target.value);
   }
 
-  function handlePwChange(e) {
+  function handlePwChange(e: React.ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value);
   }
 
-  function handlePwChangeRepeat(e) {
+  function handlePwChangeRepeat(e: React.ChangeEvent<HTMLInputElement>) {
     setPasswordRepeat(e.target.value);
   }
 
@@ -35,12 +40,12 @@ export default function Registration({ handleRegistration, serverError }) {
     setNewTypeRepeate(!newTypeRepeate);
   }
 
-  function handleFormSubmit(e) {
+  function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     handleRegistration(mail, password);
   }
 
-  function blurHandler(e) {
+  function blurHandler(e: React.FocusEvent<HTMLInputElement>) {
     switch (e.target.name) {
       case "email":
         setEmailDirty(true);
@@ -107,8 +112,8 @@ export default function Registration({ handleRegistration, serverError }) {
               }`}
               id="password"
               type={`${newType ? "text" : "password"}`}
-              maxLength="30"
-              minLength="3"
+              maxLength={30}
+              minLength={3}
               name="password"
               onBlur={blurHandler}
             />
@@ -130,11 +135,11 @@ export default function Registration({ handleRegistration, serverError }) {
               }`}
               id="repeatPW"
               type={`${newTypeRepeate ? "text" : "password"}`}
-              maxLength="30"
+              maxLength={30}
               value={passwordRepeat}
               onChange={handlePwChangeRepeat}
               name="passwordRepeat"
-              onBlur={setPasswordRepeatDirty}
+              onBlur={blurHandler}
             />
             <button
               className={`registration__view-toggle ${

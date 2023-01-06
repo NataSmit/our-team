@@ -1,6 +1,12 @@
 import React from "react";
 
-export default function Header({ children, member, logout }) {
+export interface HeaderProps {
+  children: React.ReactNode,
+  member?: boolean | undefined,
+  logout: () => void
+}
+
+export default function Header({ children, member, logout }: HeaderProps) {
   return (
     <header className="header">
       <div
