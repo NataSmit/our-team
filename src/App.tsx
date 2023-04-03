@@ -15,13 +15,13 @@ import {useAppSelector, useAppDispatch} from './types/reduxHooks';
 import {RegisteredUser} from './types/registeredUser';
 import {Message} from './types/message';
 
+
+
 function App() {
   //const dispatch = useDispatch();
   const dispatch = useAppDispatch()
   const history = useHistory();
-  const teamMembers = useAppSelector(
-    (state) => state.teamMembersSlice.teamMembers
-  );
+  
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [message, setMessage] = useState<Message>({
     successful: undefined,
@@ -30,11 +30,15 @@ function App() {
   const [serverError, setServerError] = useState("");
   const [loggedin, setLoggedin] = useState(false);
   const [registeredUsers, setRegisteredUsers] = useState<RegisteredUser[]>([]);
+  
+  
+
 
   useEffect(() => {
-    dispatch(getMembers());
     checkToken();
-  }, []);
+  }, [])
+
+  
 
   function handleRegistration(mail: string, password: string) {
     register(mail, password)
@@ -156,7 +160,7 @@ function App() {
                   любых, даже самых сложных ситуаций.
                 </p>
               </Header>
-              <Main teamMembers={teamMembers} />
+              <Main />
             </Route>
           </ProtectedRoute>
 
