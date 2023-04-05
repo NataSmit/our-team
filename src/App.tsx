@@ -30,15 +30,12 @@ function App() {
   const [serverError, setServerError] = useState("");
   const [loggedin, setLoggedin] = useState(false);
   const [registeredUsers, setRegisteredUsers] = useState<RegisteredUser[]>([]);
-  
-  
-
 
   useEffect(() => {
     checkToken();
   }, [])
 
-  
+
 
   function handleRegistration(mail: string, password: string) {
     register(mail, password)

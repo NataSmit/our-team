@@ -10,6 +10,7 @@ import {Member} from '../../types/member'
 
 
 export default function Main() {
+  
   const dispatch = useAppDispatch()
   const teamMembers = useAppSelector(
     (state) => state.teamMembersSlice.teamMembers
