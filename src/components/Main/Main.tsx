@@ -1,71 +1,71 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import MemberCard from "../MemberCard/MemberCard";
-import {useAppSelector, useAppDispatch} from '../../types/reduxHooks';
+import { useAppSelector, useAppDispatch } from "../../types/reduxHooks";
 import { getMembers } from "../../store/teamMembersSlice";
-import {useCurrentWidth} from '../../hooks/useCurrentWidth';
-
-import {Member} from '../../types/member'
-
+import { useCurrentWidth } from "../../hooks/useCurrentWidth";
 
 export default function Main() {
-  
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const teamMembers = useAppSelector(
-    (state) => state.teamMembersSlice.teamMembers
+    (state) => state.teamMembersSlice.serverData.data
   );
+  const totalNumberOfServerCards = useAppSelector(
+    (state) => state.teamMembersSlice.serverData.total
+  );
+
   const history = useHistory();
   const { error } = useAppSelector((state) => state.teamMembersSlice);
-  console.log("error", error);
-  const [initialNumberOfCards, setInitialNumberOfCards] = useState(8)
-  const [cardsToAdd, setCardsToAdd] = useState(4)
-  const [numberOfCardsAfterMoreBtn, setNumberOfCardsAfterMoreBtn] = useState(initialNumberOfCards)
-  const windowWidth = useCurrentWidth()
-  console.log(windowWidth)
+
+  const [initialNumberOfCards, setInitialNumberOfCards] = useState(8);
+  const [cardsToAdd, setCardsToAdd] = useState(4);
+  const [numberOfCardsAfterMoreBtn, setNumberOfCardsAfterMoreBtn] =
+    useState(initialNumberOfCards);
+  const windowWidth = useCurrentWidth();
+
+  //в запросе указывается нужное к-во карточек в зависимости от размера экрана
 
   useEffect(() => {
     dispatch(getMembers(initialNumberOfCards));
-    setNumberOfCardsAfterMoreBtn(initialNumberOfCards)
-  }, [initialNumberOfCards]);
-
-  useEffect(()=> {
-    setInitialNumberOfCards(initialNumberOfCards)
-    if (windowWidth >= 1281) {
-      setInitialNumberOfCards(8)
-    } else if (windowWidth >= 630 && windowWidth <= 1280) {
-      setInitialNumberOfCards(6)
-    } else {
-      setInitialNumberOfCards(4)
-    }
-
-  }, [windowWidth, initialNumberOfCards])
+    setNumberOfCardsAfterMoreBtn(initialNumberOfCards);
+  }, [initialNumberOfCards, dispatch]);
 
   useEffect(() => {
-    setCardsToAdd(cardsToAdd)
+    setInitialNumberOfCards(initialNumberOfCards);
     if (windowWidth >= 1281) {
-      setCardsToAdd(4)
+      setInitialNumberOfCards(8);
     } else if (windowWidth >= 630 && windowWidth <= 1280) {
-      setCardsToAdd(3)
+      setInitialNumberOfCards(6);
     } else {
-      setCardsToAdd(2)
+      setInitialNumberOfCards(4);
     }
+  }, [windowWidth, initialNumberOfCards]);
 
-  }, [windowWidth])
+  //при нажатии на кнопку "Ещё" добаляется разное к-во карточек в зависимости от
+  //размера экрана
 
- useEffect(() => {
-  dispatch(getMembers(numberOfCardsAfterMoreBtn))
- }, [numberOfCardsAfterMoreBtn])
+  useEffect(() => {
+    setCardsToAdd(cardsToAdd);
+    if (windowWidth >= 1281) {
+      setCardsToAdd(4);
+    } else if (windowWidth >= 630 && windowWidth <= 1280) {
+      setCardsToAdd(3);
+    } else {
+      setCardsToAdd(2);
+    }
+  }, [windowWidth, cardsToAdd]);
+
+  useEffect(() => {
+    dispatch(getMembers(numberOfCardsAfterMoreBtn));
+  }, [numberOfCardsAfterMoreBtn, dispatch]);
 
   function openMemberPage(id: number) {
     history.push(`/${id}`);
   }
 
   function handleMoreBtn() {
-    setNumberOfCardsAfterMoreBtn(numberOfCardsAfterMoreBtn + cardsToAdd)
+    setNumberOfCardsAfterMoreBtn(numberOfCardsAfterMoreBtn + cardsToAdd);
   }
-
-  console.log('numberOfCardsAfterMoreBtn', numberOfCardsAfterMoreBtn)
 
   return (
     <main className="main">
@@ -79,11 +79,11 @@ export default function Main() {
           />
         ))}
       </ul>
-      
+      {teamMembers.length < totalNumberOfServerCards && (
         <button className="main__more-btn" onClick={handleMoreBtn}>
           Показать еще
         </button>
-      
+      )}
     </main>
   );
 }

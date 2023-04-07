@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import Header from "../Header/Header";
 import { getMemberById } from "../../store/teamMembersSlice";
 import {useAppSelector, useAppDispatch} from '../../types/reduxHooks';

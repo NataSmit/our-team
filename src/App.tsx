@@ -1,8 +1,6 @@
-/* eslint-disable no-restricted-globals */
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
-import { getMembers } from "./store/teamMembersSlice";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import MemberPage from "./components/MemberPage/MemberPage";
@@ -11,17 +9,13 @@ import Login from "./components/Login/Login";
 import InfoTooltip from "./components/InfoTooltip/InfoTooltip";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { register, login } from "./api/api";
-import {useAppSelector, useAppDispatch} from './types/reduxHooks';
-import {RegisteredUser} from './types/registeredUser';
-import {Message} from './types/message';
-
-
+import { RegisteredUser } from "./types/registeredUser";
+import { Message } from "./types/message";
 
 function App() {
   //const dispatch = useDispatch();
-  const dispatch = useAppDispatch()
   const history = useHistory();
-  
+
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [message, setMessage] = useState<Message>({
     successful: undefined,
@@ -33,9 +27,7 @@ function App() {
 
   useEffect(() => {
     checkToken();
-  }, [])
-
-
+  }, []);
 
   function handleRegistration(mail: string, password: string) {
     register(mail, password)
@@ -149,7 +141,7 @@ function App() {
 
           <ProtectedRoute exact path="/" loggedin={loggedin}>
             <Route>
-              <Header logout={logout} >
+              <Header logout={logout}>
                 <h1 className="header__title">Наша команда</h1>
                 <p className="header__subtitle">
                   Это опытные специалисты, хорошо разбирающиеся во всех задачах,
@@ -163,7 +155,7 @@ function App() {
 
           <ProtectedRoute exact path="/:id" loggedin={loggedin}>
             <Route>
-              <MemberPage logout={logout}/>
+              <MemberPage logout={logout} />
             </Route>
           </ProtectedRoute>
         </Switch>

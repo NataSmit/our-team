@@ -7,8 +7,9 @@
 
 .member-page__photo {
   width: 100%;
+  height: 100%;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
 }
 
@@ -120,6 +121,10 @@
   display: none;
 }
 
+.header__back-btn-small:hover {
+  opacity: 0.7;
+}
+
 @media (max-width: 1170px) {
   .member-page__body {
     justify-content: center;
@@ -185,8 +190,6 @@
     display: block;
   }
 
-  .header__back-btn-small:hover {
-    opacity: 0.7;
-  }
+
 }
 

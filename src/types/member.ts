@@ -5,3 +5,10 @@ export type Member = {
   last_name: string,
   avatar: string
 }
+
+export type ServerData = {
+  data: Member[],
+  total: number
+}
+
+export type ServerError = null | string | undefined;
