@@ -19,7 +19,7 @@ export default function MemberPage({ member, logout }: MemberPageProps) {
 
   useEffect(() => {
     dispatch(getMemberById(params.id));
-  }, []);
+  }, [params.id, dispatch]);
 
   function goBack() {
     history.goBack();

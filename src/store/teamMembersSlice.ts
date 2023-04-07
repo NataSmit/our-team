@@ -36,7 +36,7 @@ export const getMemberById = createAsyncThunk<
 
   async (id, { rejectWithValue }) => {
     const data = await axios.get(`https://reqres.in/api/users/${id}`);
-    if (data.statusText !== "OK") {
+    if (data.status !== 200) {
       return rejectWithValue("Server Error");
     }
     const result = data.data.data;
