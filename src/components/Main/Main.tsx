@@ -16,7 +16,7 @@ export default function Main() {
 
   const history = useHistory();
   const { error } = useAppSelector((state) => state.teamMembersSlice);
-
+  console.log('error', error)
   const [initialNumberOfCards, setInitialNumberOfCards] = useState(8);
   const [cardsToAdd, setCardsToAdd] = useState(4);
   const [numberOfCardsAfterMoreBtn, setNumberOfCardsAfterMoreBtn] =

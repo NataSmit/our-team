@@ -18,7 +18,7 @@ export const getMembers = createAsyncThunk<
   );
   console.log("myData", myData);
 
-  if (myData.statusText !== "OK") {
+  if (myData.statusText !== "OK" || myData.status !== 200) {
     return rejectWithValue("Server Error");
   }
 
