@@ -17,8 +17,9 @@ export const getMembers = createAsyncThunk<
     `https://reqres.in/api/users?per_page=${cardsQuantity}`
   );
   console.log("myData", myData);
+  console.log(typeof myData.status)
 
-  if (myData.statusText !== "OK" || myData.status !== 200) {
+  if ( myData.status !== 200) {
     return rejectWithValue("Server Error");
   }
 
